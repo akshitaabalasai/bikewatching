@@ -1,0 +1,62 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+#map {
+  width: 100%;
+  height: 70vh;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* SVG overlay fills the map */
+#map svg {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* shared color vars for circles + legend */
+#map circle,
+.legend > div {
+  --color-departures: steelblue;
+  --color-arrivals: darkorange;
+  --color: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+  );
+}
+
+/* station circles */
+#map circle {
+  fill: var(--color);
+  stroke: white;
+  stroke-width: 1px;
+  fill-opacity: 0.6;
+  pointer-events: auto; /* for title tooltip */
+}
+
+/* legend */
+.legend {
+  display: flex;
+  gap: 1px;
+  margin-block: 0.75rem;
+}
+
+.legend > div {
+  flex: 1;
+  padding: 0.4rem 1rem;
+  text-align: center;
+  color: white;
+  background: var(--color);
+  font-size: 0.9rem;
+}
